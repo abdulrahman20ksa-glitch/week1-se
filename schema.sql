@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(150) UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS courses (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(150) NOT NULL,
+  description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS enrolments (
+  id SERIAL PRIMARY KEY,
+  user_id INT REFERENCES users(id),
+  course_id INT REFERENCES courses(id),
+  enrolled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS submissions (
+  id SERIAL PRIMARY KEY,
+  user_id INT REFERENCES users(id),
+  course_id INT REFERENCES courses(id),
+  score INT,
+  submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
